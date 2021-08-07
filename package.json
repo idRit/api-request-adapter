@@ -12,6 +12,10 @@
     "node-fetch",
     "request"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idRit/api-request-adapter"
+  },
   "author": "Ritwik Mukherjee (idrit)",
   "license": "MIT",
   "dependencies": {
