@@ -1,0 +1,21 @@
+{
+  "name": "api-request-adapter",
+  "version": "1.0.1",
+  "description": "A request library adapter to accomodate multiple request libraries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "axios",
+    "fetch",
+    "node-fetch",
+    "request"
+  ],
+  "author": "Ritwik Mukherjee (idrit)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-fetch": "^2.6.1"
+  }
+}
