@@ -11,9 +11,10 @@ class FetchAdapter {
       cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token ? `Bearer ${token}` : null,
       },
     };
+    if (token) 
+      this.options.headers.Authorization = `Bearer ${token}`;
   }
 
   async handleError(error) {
