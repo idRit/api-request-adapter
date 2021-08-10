@@ -1,6 +1,6 @@
 {
   "name": "api-request-adapter",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A request library adapter to accomodate multiple request libraries",
   "main": "index.js",
   "scripts": {
