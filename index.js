@@ -47,7 +47,7 @@ class FetchAdapter {
     try {
       return await this.apiResponse(url + queryString, this.options);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -63,7 +63,7 @@ class FetchAdapter {
     try {
       return await this.apiResponse(url + queryString, this.options);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -79,7 +79,7 @@ class FetchAdapter {
     try {
       return await this.apiResponse(url + queryString, this.options);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -95,7 +95,7 @@ class FetchAdapter {
     try {
       return await this.apiResponse(url + queryString, this.options);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -111,7 +111,7 @@ class FetchAdapter {
     try {
       return await this.apiResponse(url + queryString, this.options);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 }
@@ -234,7 +234,7 @@ class Request {
     try {
       return await this.adapter.get(url, queryParameters);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -249,7 +249,7 @@ class Request {
     try {
       return await this.adapter.delete(url, queryParameters, body);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -264,7 +264,7 @@ class Request {
     try {
       return await this.adapter.post(url, queryParameters, body);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -279,7 +279,7 @@ class Request {
     try {
       return await this.adapter.put(url, queryParameters, body);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 
@@ -294,7 +294,7 @@ class Request {
     try {
       return await this.adapter.patch(url, queryParameters, body);
     } catch (error) {
-      throw new Error(error);
+      throw error;
     }
   }
 }
