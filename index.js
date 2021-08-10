@@ -16,7 +16,7 @@ class FetchAdapter {
     if (token) this.options.headers.Authorization = `Bearer ${token}`;
   }
 
-  async handleError(error) {
+  handleError(error) {
     return "FetchError: " + error;
   }
 
