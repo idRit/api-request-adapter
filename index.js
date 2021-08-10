@@ -25,7 +25,10 @@ class FetchAdapter {
     let response = "";
 
     try {
-      response = await (await this.fetch(url, options)).json();
+      const res = await this.fetch(url, options);
+      const data = await res.json();
+      const status = await res.status;
+      response = { data, status };
     } catch (error) {
       response = this.handleError(error);
     }
