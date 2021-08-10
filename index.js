@@ -13,8 +13,7 @@ class FetchAdapter {
         "Content-Type": "application/json",
       },
     };
-    if (token) 
-      this.options.headers.Authorization = `Bearer ${token}`;
+    if (token) this.options.headers.Authorization = `Bearer ${token}`;
   }
 
   async handleError(error) {
@@ -22,15 +21,17 @@ class FetchAdapter {
   }
 
   async apiResponse(url, options) {
-    let response = "";
+    let response = {};
 
     try {
       const res = await this.fetch(url, options);
       const data = await res.json();
       const status = await res.status;
       response = { data, status };
+      if (response.status !== 200) throw new Error(JSON.stringify(response));
     } catch (error) {
       response = this.handleError(error);
+      throw new Error(response);
     }
 
     return response;
@@ -43,7 +44,11 @@ class FetchAdapter {
       ? new URLSearchParams(queryParameters).toString()
       : "";
 
-    return await this.apiResponse(url + queryString, this.options);
+    try {
+      return await this.apiResponse(url + queryString, this.options);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async delete(url, queryParameters, body) {
@@ -55,7 +60,11 @@ class FetchAdapter {
 
     this.options.body = body ? JSON.stringify(body) : null;
 
-    return await this.apiResponse(url + queryString, this.options);
+    try {
+      return await this.apiResponse(url + queryString, this.options);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async put(url, queryParameters, body) {
@@ -67,7 +76,11 @@ class FetchAdapter {
 
     this.options.body = body ? JSON.stringify(body) : null;
 
-    return await this.apiResponse(url + queryString, this.options);
+    try {
+      return await this.apiResponse(url + queryString, this.options);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async patch(url, queryParameters, body) {
@@ -79,7 +92,11 @@ class FetchAdapter {
 
     this.options.body = body ? JSON.stringify(body) : null;
 
-    return await this.apiResponse(url + queryString, this.options);
+    try {
+      return await this.apiResponse(url + queryString, this.options);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async post(url, queryParameters, body) {
@@ -91,7 +108,11 @@ class FetchAdapter {
 
     this.options.body = body ? JSON.stringify(body) : null;
 
-    return await this.apiResponse(url + queryString, this.options);
+    try {
+      return await this.apiResponse(url + queryString, this.options);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 
@@ -210,7 +231,11 @@ class Request {
    * @returns {Promise} resolves into the JSON object of given request
    */
   async get(url, queryParameters) {
-    return await this.adapter.get(url, queryParameters);
+    try {
+      return await this.adapter.get(url, queryParameters);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
@@ -221,7 +246,11 @@ class Request {
    * @returns {Promise} resolves into the JSON object of given request
    */
   async delete(url, queryParameters, body) {
-    return await this.adapter.get(url, queryParameters, body);
+    try {
+      return await this.adapter.delete(url, queryParameters, body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
@@ -232,7 +261,11 @@ class Request {
    * @returns {Promise} resolves into the JSON object of given request
    */
   async post(url, queryParameters, body) {
-    return await this.adapter.post(url, queryParameters, body);
+    try {
+      return await this.adapter.post(url, queryParameters, body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
@@ -243,7 +276,11 @@ class Request {
    * @returns {Promise} resolves into the JSON object of given request
    */
   async put(url, queryParameters, body) {
-    return await this.adapter.put(url, queryParameters, body);
+    try {
+      return await this.adapter.put(url, queryParameters, body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
@@ -254,7 +291,11 @@ class Request {
    * @returns {Promise} resolves into the JSON object of given request
    */
   async patch(url, queryParameters, body) {
-    return await this.adapter.patch(url, queryParameters, body);
+    try {
+      return await this.adapter.patch(url, queryParameters, body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 
