@@ -68,6 +68,7 @@ class FetchAdapter {
       response = { data, status };
       if (response.status !== 200) throw new Error(JSON.stringify(response));
     } catch (error) {
+      console.log("lalala");
       throw error;
     }
 
