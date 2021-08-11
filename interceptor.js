@@ -38,12 +38,12 @@ function interceptor(fetch, ...args) {
   return promise;
 }
 
-module.exports = function attach(fetch) {
-  fetch = (function (fetch) {
+module.exports = function attach(fetchLibrary) {
+  fetchLibrary = (function (fetch) {
     return function (...args) {
       return interceptor(fetch, ...args);
     };
-  })(fetch);
+  })(fetchLibrary);
 
   return {
     register: function (interceptor) {
