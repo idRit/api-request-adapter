@@ -40,7 +40,7 @@ class FetchAdapter {
     };
     if (token) this.options.headers.Authorization = `Bearer ${token}`;
     if (fetchInterceptor) {
-      this.fetchIntercept = require("fetch-intercept");
+      this.fetchIntercept = require("./interceptor")(this.fetch);
       this.unregister = this.fetchIntercept.register({
         request: fetchInterceptor.request || null,
         requestError: fetchInterceptor.requestError || null,
