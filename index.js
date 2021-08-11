@@ -1,10 +1,35 @@
+class FetchInterceptor {
+  constructor(options) {
+    this.request = options.request;
+    this.requestError = options.requestError;
+    this.response = options.response;
+    this.responseError = options.responseError;
+  }
+
+  setRequest(callback) {
+    this.request = callback;
+  }
+
+  setRequestError(callback) {
+    this.requestError = callback;
+  }
+
+  setResponse(callback) {
+    this.response = callback;
+  }
+
+  setResponseError(callback) {
+    this.responseError = callback;
+  }
+}
 class FetchAdapter {
   /**
    * Instantiate the Fetch Adapter
    * @param {String} token (Optional) Bearer Token
    * @param {Object} fetchLibrary (Optional) pass in the fetch object if using on browser
+   * @param {Object} fetchInterceptor (Optional) pass in the fetch interceptor object
    */
-  constructor(token, fetchLibrary) {
+  constructor(token, fetchLibrary, fetchInterceptor) {
     this.fetch = fetchLibrary || require("node-fetch");
     this.options = {
       mode: "cors",
@@ -14,6 +39,19 @@ class FetchAdapter {
       },
     };
     if (token) this.options.headers.Authorization = `Bearer ${token}`;
+    if (fetchInterceptor) {
+      this.fetchIntercept = require("fetch-intercept");
+      this.unregister = this.fetchIntercept.register({
+        request: fetchInterceptor.request || null,
+        requestError: fetchInterceptor.requestError || null,
+        response: fetchInterceptor.response || null,
+        responseError: fetchInterceptor.responseError || null,
+      });
+    }
+  }
+
+  unregisterFetchInterceptor() {
+    this.unregister();
   }
 
   handleError(error) {
@@ -302,4 +340,5 @@ module.exports = {
   Request,
   FetchAdapter,
   AxiosAdapter,
+  FetchInterceptor,
 };
