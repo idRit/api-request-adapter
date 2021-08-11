@@ -27,9 +27,10 @@ class FetchAdapter {
    * Instantiate the Fetch Adapter
    * @param {String} token (Optional) Bearer Token
    * @param {Object} fetchLibrary (Optional) pass in the fetch object if using on browser
+   * @param {Function} globalErrorHandler (Optional) pass in a callback function to execute on error
    * @param {Object} fetchInterceptor (Optional) pass in the fetch interceptor object
    */
-  constructor(token, fetchLibrary, fetchInterceptor) {
+  constructor(token, fetchLibrary, globalErrorHandler, fetchInterceptor) {
     this.fetch = fetchLibrary || require("node-fetch");
     this.options = {
       mode: "cors",
@@ -48,6 +49,8 @@ class FetchAdapter {
         responseError: fetchInterceptor.responseError || null,
       });
     }
+    if (globalErrorHandler && typeof globalErrorHandler === "function") 
+      this.globalErrorHandler = globalErrorHandler;
   }
 
   unregisterFetchInterceptor() {
@@ -68,7 +71,8 @@ class FetchAdapter {
       response = { data, status };
       if (response.status !== 200) throw new Error(JSON.stringify(response));
     } catch (error) {
-      console.log("lalala");
+      if (this.globalErrorHandler)
+        this.globalErrorHandler(error)
       throw error;
     }
 
