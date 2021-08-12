@@ -83,7 +83,7 @@ class FetchAdapter {
     this.options.method = "GET";
 
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     try {
@@ -97,7 +97,7 @@ class FetchAdapter {
     this.options.method = "DELETE";
 
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -113,7 +113,7 @@ class FetchAdapter {
     this.options.method = "PUT";
 
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -129,7 +129,7 @@ class FetchAdapter {
     this.options.method = "PATCH";
 
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -145,7 +145,7 @@ class FetchAdapter {
     this.options.method = "POST";
 
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -198,7 +198,7 @@ class AxiosAdapter {
 
   async get(url, queryParameters) {
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     return await this.apiResponse("get", url + queryString, null, this.options);
@@ -206,7 +206,7 @@ class AxiosAdapter {
 
   async delete(url, queryParameters, body) {
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     return await this.apiResponse(
@@ -219,7 +219,7 @@ class AxiosAdapter {
 
   async put(url, queryParameters, body) {
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     return await this.apiResponse(
@@ -232,7 +232,7 @@ class AxiosAdapter {
 
   async patch(url, queryParameters, body) {
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     return await this.apiResponse(
@@ -245,7 +245,7 @@ class AxiosAdapter {
 
   async post(url, queryParameters, body) {
     const queryString = queryParameters
-      ? new URLSearchParams(queryParameters).toString()
+      ? "?" + new URLSearchParams(queryParameters).toString()
       : "";
 
     return await this.apiResponse(
