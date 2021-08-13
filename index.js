@@ -51,6 +51,7 @@ class FetchAdapter {
     }
     if (globalErrorHandler && typeof globalErrorHandler === "function") 
       this.globalErrorHandler = globalErrorHandler;
+    this.queryString = require("query-string");
   }
 
   unregisterFetchInterceptor() {
@@ -79,11 +80,15 @@ class FetchAdapter {
     return response;
   }
 
+  queryStringBuilder(queryParameters) {
+    return this.queryString.stringify(queryParameters);
+  }
+
   async get(url, queryParameters, options) {
     this.options.method = "GET";
 
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     try {
@@ -100,7 +105,7 @@ class FetchAdapter {
     this.options.method = "DELETE";
 
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -119,7 +124,7 @@ class FetchAdapter {
     this.options.method = "PUT";
 
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -138,7 +143,7 @@ class FetchAdapter {
     this.options.method = "PATCH";
 
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -157,7 +162,7 @@ class FetchAdapter {
     this.options.method = "POST";
 
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     this.options.body = body ? JSON.stringify(body) : null;
@@ -188,6 +193,10 @@ class AxiosAdapter {
   async handleError(error) {
     return "AxiosError: " + error;
   }
+  
+  queryStringBuilder(queryParameters) {
+    return this.queryString.stringify(queryParameters);
+  }
 
   async apiResponse(method, url, body, options) {
     let response = "";
@@ -210,7 +219,7 @@ class AxiosAdapter {
 
   async get(url, queryParameters) {
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     return await this.apiResponse("get", url + queryString, null, this.options);
@@ -218,7 +227,7 @@ class AxiosAdapter {
 
   async delete(url, queryParameters, body) {
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     return await this.apiResponse(
@@ -231,7 +240,7 @@ class AxiosAdapter {
 
   async put(url, queryParameters, body) {
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     return await this.apiResponse(
@@ -244,7 +253,7 @@ class AxiosAdapter {
 
   async patch(url, queryParameters, body) {
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     return await this.apiResponse(
@@ -257,7 +266,7 @@ class AxiosAdapter {
 
   async post(url, queryParameters, body) {
     const queryString = queryParameters
-      ? "?" + new URLSearchParams(queryParameters).toString()
+      ? "?" + this.queryStringBuilder(queryParameters)
       : "";
 
     return await this.apiResponse(
