@@ -79,7 +79,7 @@ class FetchAdapter {
     return response;
   }
 
-  async get(url, queryParameters) {
+  async get(url, queryParameters, options) {
     this.options.method = "GET";
 
     const queryString = queryParameters
@@ -87,13 +87,16 @@ class FetchAdapter {
       : "";
 
     try {
-      return await this.apiResponse(url + queryString, this.options);
+      return await this.apiResponse(
+        url + queryString,
+        options ? options : this.options
+      );
     } catch (error) {
       throw error;
     }
   }
 
-  async delete(url, queryParameters, body) {
+  async delete(url, queryParameters, body, options) {
     this.options.method = "DELETE";
 
     const queryString = queryParameters
@@ -103,13 +106,16 @@ class FetchAdapter {
     this.options.body = body ? JSON.stringify(body) : null;
 
     try {
-      return await this.apiResponse(url + queryString, this.options);
+      return await this.apiResponse(
+        url + queryString,
+        options ? options : this.options
+      );
     } catch (error) {
       throw error;
     }
   }
 
-  async put(url, queryParameters, body) {
+  async put(url, queryParameters, body, options) {
     this.options.method = "PUT";
 
     const queryString = queryParameters
@@ -119,13 +125,16 @@ class FetchAdapter {
     this.options.body = body ? JSON.stringify(body) : null;
 
     try {
-      return await this.apiResponse(url + queryString, this.options);
+      return await this.apiResponse(
+        url + queryString,
+        options ? options : this.options
+      );
     } catch (error) {
       throw error;
     }
   }
 
-  async patch(url, queryParameters, body) {
+  async patch(url, queryParameters, body, options) {
     this.options.method = "PATCH";
 
     const queryString = queryParameters
@@ -135,13 +144,16 @@ class FetchAdapter {
     this.options.body = body ? JSON.stringify(body) : null;
 
     try {
-      return await this.apiResponse(url + queryString, this.options);
+      return await this.apiResponse(
+        url + queryString,
+        options ? options : this.options
+      );
     } catch (error) {
       throw error;
     }
   }
 
-  async post(url, queryParameters, body) {
+  async post(url, queryParameters, body, options) {
     this.options.method = "POST";
 
     const queryString = queryParameters
@@ -151,7 +163,7 @@ class FetchAdapter {
     this.options.body = body ? JSON.stringify(body) : null;
 
     try {
-      return await this.apiResponse(url + queryString, this.options);
+      return await this.apiResponse(url + queryString, options ? options : this.options);
     } catch (error) {
       throw error;
     }
@@ -270,11 +282,12 @@ class Request {
    * GET HTTP request
    * @param {string} url
    * @param {object} queryParameters key, pair which includes query parameter
+   * @param {object} options key, pair which provides optional options like headers, etc.
    * @returns {Promise} resolves into the JSON object of given request
    */
-  async get(url, queryParameters) {
+  async get(url, queryParameters, options) {
     try {
-      return await this.adapter.get(url, queryParameters);
+      return await this.adapter.get(url, queryParameters, options);
     } catch (error) {
       throw error;
     }
@@ -284,12 +297,13 @@ class Request {
    * DELETE HTTP request
    * @param {string} url
    * @param {object} queryParameters key, pair which includes query parameter
-   * @param {object} body key, pair which will be the request json bodyr
+   * @param {object} body key, pair which will be the request json body
+   * @param {object} options key, pair which provides optional options like headers, etc.
    * @returns {Promise} resolves into the JSON object of given request
    */
-  async delete(url, queryParameters, body) {
+  async delete(url, queryParameters, body, options) {
     try {
-      return await this.adapter.delete(url, queryParameters, body);
+      return await this.adapter.delete(url, queryParameters, body, options);
     } catch (error) {
       throw error;
     }
@@ -299,12 +313,13 @@ class Request {
    * POST HTTP request
    * @param {string} url
    * @param {object} queryParameters key, pair which includes query parameter
-   * @param {object} body key, pair which will be the request json bodyr
+   * @param {object} body key, pair which will be the request json body
+   * @param {object} options key, pair which provides optional options like headers, etc.
    * @returns {Promise} resolves into the JSON object of given request
    */
-  async post(url, queryParameters, body) {
+  async post(url, queryParameters, body, options) {
     try {
-      return await this.adapter.post(url, queryParameters, body);
+      return await this.adapter.post(url, queryParameters, body, options);
     } catch (error) {
       throw error;
     }
@@ -314,12 +329,13 @@ class Request {
    * PUT HTTP request
    * @param {string} url
    * @param {object} queryParameters key, pair which includes query parameter
-   * @param {object} body key, pair which will be the request json bodyr
+   * @param {object} body key, pair which will be the request json body
+   * @param {object} options key, pair which provides optional options like headers, etc.
    * @returns {Promise} resolves into the JSON object of given request
    */
-  async put(url, queryParameters, body) {
+  async put(url, queryParameters, body, options) {
     try {
-      return await this.adapter.put(url, queryParameters, body);
+      return await this.adapter.put(url, queryParameters, body, options);
     } catch (error) {
       throw error;
     }
@@ -330,11 +346,12 @@ class Request {
    * @param {string} url
    * @param {object} queryParameters key, pair which includes query parameter
    * @param {object} body key, pair which will be the request json body
+   * @param {object} options key, pair which provides optional options like headers, etc.
    * @returns {Promise} resolves into the JSON object of given request
    */
-  async patch(url, queryParameters, body) {
+  async patch(url, queryParameters, body, options) {
     try {
-      return await this.adapter.patch(url, queryParameters, body);
+      return await this.adapter.patch(url, queryParameters, body, options);
     } catch (error) {
       throw error;
     }
