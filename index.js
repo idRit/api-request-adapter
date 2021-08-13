@@ -81,7 +81,9 @@ class FetchAdapter {
   }
 
   queryStringBuilder(queryParameters) {
-    return this.queryString.stringify(queryParameters);
+    return this.queryString.stringify(queryParameters, {
+      arrayFormat: "bracket",
+    });
   }
 
   async get(url, queryParameters, options) {
@@ -188,14 +190,17 @@ class AxiosAdapter {
         "Content-Type": "application/json",
       },
     };
+    this.queryString = require("query-string");
   }
 
   async handleError(error) {
     return "AxiosError: " + error;
   }
-  
+
   queryStringBuilder(queryParameters) {
-    return this.queryString.stringify(queryParameters);
+    return this.queryString.stringify(queryParameters, {
+      arrayFormat: "bracket",
+    });
   }
 
   async apiResponse(method, url, body, options) {
