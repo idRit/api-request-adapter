@@ -88,6 +88,7 @@ class FetchAdapter {
 
   async get(url, queryParameters, options) {
     this.options.method = "GET";
+    this.options.body = null;
 
     const queryString = queryParameters
       ? "?" + this.queryStringBuilder(queryParameters)
