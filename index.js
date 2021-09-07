@@ -54,6 +54,11 @@ class FetchAdapter {
     this.queryString = require("query-string");
   }
 
+  clearToken() {
+    if (this.options.headers.Authorization)
+      delete this.options.headers.Authorization;
+  }
+
   unregisterFetchInterceptor() {
     this.unregister();
   }
@@ -370,6 +375,10 @@ class Request {
     } catch (error) {
       throw error;
     }
+  }
+
+  clearToken() {
+    this.adapter.clearToken();
   }
 }
 
