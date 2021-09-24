@@ -59,6 +59,10 @@ class FetchAdapter {
       delete this.options.headers.Authorization;
   }
 
+  setToken(token) {
+    this.options.headers.Authorization = `Bearer ${token}`;
+  }
+
   unregisterFetchInterceptor() {
     this.unregister();
   }
@@ -379,6 +383,10 @@ class Request {
 
   clearToken() {
     this.adapter.clearToken();
+  }
+
+  setToken(token) {
+    this.adapter.setToken(token);
   }
 }
 
